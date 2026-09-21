@@ -15,26 +15,58 @@ public class PilaDoblementeEnlazada<T> implements Pila<T> {
 
     @Override
     public T tope() throws IllegalStateException {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'tope'");
+        if(this.esVacia()) {
+            throw new IllegalStateException("La pila está vacía");
+        }else {
+            return this.fin.getItem();
+        }
+        
     }
 
     @Override
     public void apilar(T elem) throws IllegalStateException {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'apilar'");
+        NodoPila<T> nuevoNodo = new NodoPila<>(null, elem, this.inicio);
+        if(elem == null) {
+            throw new IllegalArgumentException("El elemento no puede ser nulo");
+        }
+        if(this.inicio == null) {
+            this.fin = nuevoNodo;
+            this.inicio =nuevoNodo;
+        }else { 
+            this.inicio.setPrev(nuevoNodo);
+            this.inicio = nuevoNodo;
+        }
+        
+        
     }
 
     @Override
     public T desapilar() throws IllegalStateException {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'desapilar'");
+        if(this.esVacia()) {
+            throw new IllegalStateException("La pila está vacía");
+        }else {
+            T item = this.inicio.getItem();
+            if(this.inicio == this.fin) {
+                this.inicio = null;
+                this.fin = null;
+            }else {
+                this.inicio = this.inicio.getNext();
+                this.inicio.setPrev(null);
+
+            
+            }
+            return item;
+        }
     }
 
     @Override
     public void imprimir() {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        NodoPila<T> aux = this.inicio;
+        while(aux != null) {
+            System.out.println(aux.getItem());
+            aux = aux.getNext();
+        }
+        
     }
 
 }
